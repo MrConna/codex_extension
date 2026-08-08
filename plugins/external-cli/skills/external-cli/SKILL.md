@@ -9,15 +9,17 @@ Use the `codex-external` command installed from this repository (`npm link` at t
 
 ```bash
 codex-external run claude "Review the current changes for correctness and security" --json
-codex-external run agy "Propose an implementation plan for this task"
+codex-external run codex "Propose an implementation plan for this task"
+codex-external run agy "Challenge the plan from a second perspective"
 codex-external run pi "Inspect the failing tests and suggest a fix" --timeout 120000
 ```
 
 If a provider is not configured, ask the user to configure it (or provide a command path):
 
 ```bash
-codex-external configure claude --command claude --args '["-p","{prompt}"]'
-codex-external configure agy --command agy --args '["--prompt","{prompt}"]'
+codex-external configure claude --command claude-official --args '["-p","{prompt}"]'
+codex-external configure codex --command codex-official --args '["-p","{prompt}"]'
+codex-external configure agy --command agy-official --args '["--prompt","{prompt}"]'
 codex-external configure pi --command pi --args '["-p","{prompt}"]'
 ```
 
