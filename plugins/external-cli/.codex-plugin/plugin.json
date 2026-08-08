@@ -1,9 +1,34 @@
 {
   "name": "external-cli",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260808095910",
   "description": "Configure pi, agy, Claude, and other local CLIs as Codex subagents.",
-  "author": { "name": "codex-extension" },
+  "author": {
+    "name": "codex-extension"
+  },
   "license": "MIT",
-  "keywords": ["codex", "subagent", "pi", "agy", "claude", "cli"],
+  "keywords": [
+    "codex",
+    "subagent",
+    "pi",
+    "agy",
+    "claude",
+    "cli"
+  ],
+  "interface": {
+    "displayName": "External CLI Subagents",
+    "shortDescription": "Use user-installed AI CLIs as Codex subagents.",
+    "longDescription": "Configure and invoke pi, agy, claude, codex, or any compatible local CLI from Codex. Provider binaries are installed and authenticated by the user.",
+    "developerName": "codex-extension",
+    "category": "Productivity",
+    "capabilities": [
+      "Local CLI provider configuration",
+      "Pi, AGY, Claude, and Codex subagent invocation",
+      "Timeout and JSON output support"
+    ],
+    "defaultPrompt": [
+      "Use a configured external CLI to review the current changes.",
+      "Ask a configured external CLI for an implementation plan."
+    ]
+  },
   "skills": "./skills/"
 }
