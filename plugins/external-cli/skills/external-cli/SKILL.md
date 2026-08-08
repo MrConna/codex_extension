@@ -14,6 +14,17 @@ codex-external run agy "Challenge the plan from a second perspective"
 codex-external run pi "Inspect the failing tests and suggest a fix" --timeout 120000
 ```
 
+Model selection is provider-specific and is configured as fixed arguments:
+
+```bash
+codex-external configure claude --command claude --args '["-p","--model","sonnet","{prompt}"]'
+codex-external configure agy --command agy --args '["--model","Gemini 3.5 Flash (Low)","--prompt","{prompt}"]'
+codex-external configure codex --command codex --args '["--model","o3","{prompt}"]'
+codex-external configure pi --command pi --args '["--provider","anthropic","--model","anthropic/claude-sonnet-4-20250514","-p","{prompt}"]'
+```
+
+When users need multiple model presets, configure separate provider names such as `claude-sonnet` and `claude-opus`.
+
 If a provider is not configured, ask the user to configure it (or provide a command path):
 
 ```bash

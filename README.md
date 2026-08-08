@@ -26,6 +26,26 @@ codex-external doctor --json
 codex-external run claude "审查当前改动，列出高风险问题" --json
 ```
 
+### 模型配置
+
+模型参数也通过 `--args` 固定到 provider。外部 CLI 必须由用户自行安装，并以实际版本支持的模型名为准：
+
+```bash
+# Claude Code
+codex-external configure claude --command claude --args '["-p","--model","sonnet","{prompt}"]'
+
+# Google Antigravity（可先运行 agy models 查看可用名称）
+codex-external configure agy --command agy --args '["--model","Gemini 3.5 Flash (Low)","--prompt","{prompt}"]'
+
+# Codex
+codex-external configure codex --command codex --args '["--model","o3","{prompt}"]'
+
+# Pi
+codex-external configure pi --command pi --args '["--provider","anthropic","--model","anthropic/claude-sonnet-4-20250514","-p","{prompt}"]'
+```
+
+需要同时保留多个模型时，可以配置多个 provider 名称，例如 `claude-sonnet`、`claude-opus` 或 `pi-gpt5`。
+
 `{prompt}` 会被安全地替换为提示词；没有占位符时提示词会作为最后一个参数追加。进程使用 `shell: false` 启动，支持 `--cwd`、`--timeout` 和 `--env=KEY=VALUE`。配置文件默认位于 `~/.config/codex-external-cli/config.json`，可用 `CODEX_EXTERNAL_CLI_CONFIG` 覆盖。
 
 外部 CLI 的输出只作为建议，Codex 仍负责判断、修改、测试和提交。
