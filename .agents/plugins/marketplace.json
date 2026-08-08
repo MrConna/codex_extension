@@ -1,0 +1,10 @@
+{
+  "name": "codex-external-cli",
+  "interface": { "displayName": "Codex External CLI" },
+  "plugins": [{
+    "name": "external-cli",
+    "source": { "source": "local", "path": "./plugins/external-cli" },
+    "policy": { "installation": "AVAILABLE", "authentication": "ON_USE" },
+    "category": "Productivity"
+  }]
+}

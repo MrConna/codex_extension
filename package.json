@@ -1,0 +1,10 @@
+{
+  "name": "codex-external-cli",
+  "version": "0.1.0",
+  "description": "Configure and invoke local AI CLIs as Codex subagents.",
+  "type": "module",
+  "bin": { "codex-external": "./bin/codex-external.mjs" },
+  "scripts": { "test": "node --test", "lint": "node --check bin/codex-external.mjs && node --check src/*.mjs" },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}

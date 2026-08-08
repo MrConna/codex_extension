@@ -1,0 +1,9 @@
+{
+  "name": "external-cli",
+  "version": "0.1.0",
+  "description": "Configure pi, agy, Claude, and other local CLIs as Codex subagents.",
+  "author": { "name": "codex-extension" },
+  "license": "MIT",
+  "keywords": ["codex", "subagent", "pi", "agy", "claude", "cli"],
+  "skills": "./skills/"
+}
