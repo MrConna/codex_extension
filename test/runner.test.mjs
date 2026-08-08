@@ -9,8 +9,8 @@ test("interpolates prompt without shell parsing", () => {
 test("appends prompt when template has no placeholder", () => {
   assert.deepEqual(interpolateArgs(["--json"], "hello"), ["--json", "hello"]);
 });
-test("uses official CLI aliases for built-in providers", () => {
-  assert.equal(DEFAULT_PROVIDERS.claude.command, "claude-official");
-  assert.equal(DEFAULT_PROVIDERS.codex.command, "codex-official");
-  assert.equal(DEFAULT_PROVIDERS.agy.command, "agy-official");
+test("uses user-installed CLI names for built-in providers", () => {
+  assert.equal(DEFAULT_PROVIDERS.claude.command, "claude");
+  assert.equal(DEFAULT_PROVIDERS.codex.command, "codex");
+  assert.equal(DEFAULT_PROVIDERS.agy.command, "agy");
 });

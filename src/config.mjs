@@ -4,9 +4,9 @@ import fs from "node:fs/promises";
 
 export const DEFAULT_PROVIDERS = {
   pi: { command: "pi", args: ["-p", "{prompt}"], description: "Pi coding agent" },
-  agy: { command: "agy-official", args: ["--prompt", "{prompt}"], description: "Google Antigravity CLI" },
-  claude: { command: "claude-official", args: ["-p", "{prompt}"], description: "Claude Code CLI" },
-  codex: { command: "codex-official", args: ["-p", "{prompt}"], description: "Codex CLI" }
+  agy: { command: "agy", args: ["--prompt", "{prompt}"], description: "Google Antigravity CLI (install separately)" },
+  claude: { command: "claude", args: ["-p", "{prompt}"], description: "Claude Code CLI (install separately)" },
+  codex: { command: "codex", args: ["-p", "{prompt}"], description: "Codex CLI (install separately)" }
 };
 
 export function configPath(env = process.env) {
