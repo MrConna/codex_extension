@@ -86,6 +86,57 @@ codex-external run pi-deepseek "写一首关于夜航与星光的诗"
 
 需要同时保留多个模型时，可以配置多个 provider 名称，例如 `claude-sonnet`、`claude-opus` 或 `pi-gpt5`。
 
+### YOLO / 自动批准配置
+
+YOLO 会减少或跳过命令确认，部分模式还会关闭沙箱。只应在临时目录、容器或你明确信任的仓库中使用；不要把 API key、生产目录或含敏感数据的工作区交给 YOLO provider。
+
+#### Claude Code
+
+使用 `--dangerously-skip-permissions` 跳过权限提示：
+
+```bash
+codex-external configure claude-yolo \
+  --command claude \
+  --args '["--dangerously-skip-permissions","-p","{prompt}"]'
+```
+
+#### AGY
+
+AGY 支持同名的 `--dangerously-skip-permissions` 启动参数：
+
+```bash
+codex-external configure agy-yolo \
+  --command agy \
+  --args '["--dangerously-skip-permissions","--prompt","{prompt}"]'
+```
+
+也可以在 AGY 的 `/config` 或 `/permissions` 中调整持久化权限设置；命令行参数只覆盖当前会话。
+
+#### Codex
+
+Codex 的无交互执行建议使用 `exec` 子命令，并显式传入危险绕过参数：
+
+```bash
+codex-external configure codex-yolo \
+  --command codex \
+  --args '["exec","--dangerously-bypass-approvals-and-sandbox","{prompt}"]'
+```
+
+该参数会同时绕过审批和沙箱，风险高于仅放宽工作区写权限。`--full-auto` 已是旧兼容参数，不建议新配置使用。
+
+#### Pi
+
+Pi 核心 CLI 没有统一的 `--yolo` 参数。若安装了 `pi-permission-system` 扩展，可在 `~/.pi/agent/extensions/pi-permission-system/config.json` 设置：
+
+```json
+{
+  "enabled": true,
+  "yoloMode": true
+}
+```
+
+Pi 的 provider/model 仍通过 `--provider`、`--model` 配置；YOLO 权限由扩展配置控制。没有安装该扩展时，不要假设 `pi-yolo` provider 会自动获得额外权限。
+
 `{prompt}` 会被安全地替换为提示词；没有占位符时提示词会作为最后一个参数追加。进程使用 `shell: false` 启动，支持 `--cwd`、`--timeout` 和 `--env=KEY=VALUE`。配置文件默认位于 `~/.config/codex-external-cli/config.json`，可用 `CODEX_EXTERNAL_CLI_CONFIG` 覆盖。
 
 外部 CLI 的输出只作为建议，Codex 仍负责判断、修改、测试和提交。
