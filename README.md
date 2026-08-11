@@ -13,6 +13,29 @@ codex plugin marketplace add .
 codex plugin add external-cli@codex-external-cli
 ```
 
+## 外部 CLI 安装与认证
+
+本插件不会替用户下载、升级或登录外部 CLI。请先安装你需要的 provider，并确认命令已经在 `PATH` 中。下面是 macOS/Linux 的常用安装方式；Windows 请使用各项目的官方安装器。
+
+| CLI | 安装 | 首次认证/检查 |
+| --- | --- | --- |
+| Codex | `npm install -g @openai/codex`，或 `brew install --cask codex` | 运行 `codex`，选择 ChatGPT 登录；也可以按官方文档配置 API key |
+| Claude Code | `npm install -g @anthropic-ai/claude-code` | 运行 `claude` 完成首次登录；可用 `claude doctor` 检查 |
+| Antigravity | `curl -fsSL https://antigravity.google/cli/install.sh \| bash` | 运行 `agy`，按提示完成浏览器/Keychain 登录 |
+| Pi | `npm install -g --ignore-scripts @earendil-works/pi-coding-agent` | 运行 `pi` 后执行 `/login`，凭证会保存到 `~/.pi/agent/auth.json` |
+
+官方安装与认证文档： [Codex](https://github.com/openai/codex#quickstart)、[Claude Code](https://docs.anthropic.com/en/docs/claude-code/getting-started)、[Antigravity CLI](https://antigravity.google/docs/cli/install)、[Pi](https://pi.dev/docs/latest/quickstart)。
+
+安装后可以检查命令是否可见：
+
+```bash
+command -v codex claude agy pi
+codex --version
+claude --version
+agy --help
+pi --version
+```
+
 ## 配置与调用
 
 扩展不会自动下载或安装外部 CLI。用户需要先自行安装并确保命令在 PATH 中。默认 provider 使用 `pi -p {prompt}`、`agy --prompt {prompt}`、`claude -p {prompt}` 和 `codex -p {prompt}`。可通过配置覆盖命令和参数：
@@ -42,6 +65,23 @@ codex-external configure codex --command codex --args '["--model","o3","{prompt}
 
 # Pi
 codex-external configure pi --command pi --args '["--provider","anthropic","--model","anthropic/claude-sonnet-4-20250514","-p","{prompt}"]'
+```
+
+查看 provider 自己报告的模型列表：
+
+```bash
+agy models
+pi --list-models
+pi --list-models deepseek
+```
+
+例如使用 Pi 已认证的 DeepSeek V4 Flash：
+
+```bash
+codex-external configure pi-deepseek \
+  --command pi \
+  --args '["--provider","deepseek","--model","deepseek-v4-flash","-p","{prompt}"]'
+codex-external run pi-deepseek "写一首关于夜航与星光的诗"
 ```
 
 需要同时保留多个模型时，可以配置多个 provider 名称，例如 `claude-sonnet`、`claude-opus` 或 `pi-gpt5`。
